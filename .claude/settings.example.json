@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash|Write|Edit", "hooks": [ { "type": "command", "command": "bash .claude/hooks/block-secrets.sh" } ] },
+      { "matcher": "Bash", "hooks": [ { "type": "command", "command": "bash .claude/hooks/block-destructive.sh" } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "hooks": [ { "type": "command", "command": "bash .claude/hooks/require-tests.sh" } ] }
+    ]
+  },
+  "permissions": {
+    "deny": [
+      "Read(.env*)", "Read(secrets/**)", "Edit(.env*)", "Edit(secrets/**)",
+      "Read(.claude/hooks/private-patterns.txt)"
+    ]
+  }
+}

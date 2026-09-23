@@ -1,0 +1,6 @@
+.env
+.env.*
+secrets/
+.claude/hooks/private-patterns.txt
+node_modules/
+outputs/
