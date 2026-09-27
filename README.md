@@ -21,6 +21,17 @@ Claude Code で請求書処理・記事作成・集計などの業務ツール�
 - `.claude/settings.example.json` … 上の hooks を登録する設定例（秘密情報は含まない）
 - `LICENSE` … MIT
 
+## block-destructive.sh が止めるもの・通すもの（テストで確認済み）
+
+| 止める（exit 2） | 通す |
+|---|---|
+| `git add -A`、`git add --all`、`git add .` | `git add docs/a.md scripts/b.js`（パス指定） |
+| `git add -- .`、`git add -Av`、`git add :/` | `git add -u`（追跡中のファイルだけ） |
+| `git -C ../other add -A` | `git add ./src/app.js` |
+| `rm -rf`、`git push --force`、`terraform apply／destroy` | `git status`、`git commit -m "..."` |
+
+文字列で見ているので、説明文の中に同じ文字列があるだけのコマンドも止まることがあります。そのときはフックを緩めずに、ファイルに書いてから実行するなどの回り道をしてください。
+
 ## 5分で始める手順
 1. このリポジトリをテンプレとして新しいリポジトリを作る（GitHub の「Use this template」、または中身をコピーして `git init`）。
 2. `CLAUDE.md` を自分のプロジェクトの目的・絶対ルールに書き換える。
